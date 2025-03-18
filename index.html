@@ -21,8 +21,8 @@ header {
     align-items: center;
     background-color: #1A3C34;
     color: #F4E8C1;
-    padding: 25px 40px;
-    font-size: 1.2em; /* یہ ویسا ہی رہے گا */
+    padding: 20px 40px;
+    font-size: 1.2em;
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -34,12 +34,10 @@ header {
     flex-wrap: wrap;
 }
 
-/* نیا سٹائل یہاں شامل کریں */
 .header-left h1 {
-    font-size: 1.3em;
+    font-size: 1em;
     margin: 0;
 }
-
         header:hover {
             background-color: #2E5C52;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
@@ -220,7 +218,7 @@ header {
 
         #ayahDisplay {
             font-family: 'Amiri Quran', serif;
-            font-size: 34px;
+            font-size: 30px;
             line-height: 1.8;
             color: #1A3C34;
             text-align: center;
@@ -281,7 +279,7 @@ header {
 
         .search-container {
     display: flex;
-    flex-direction: column; /* عمودی ترتیب کے لیے */
+    flex-direction: column;
     align-items: center;
     gap: 10px;
     position: absolute;
@@ -298,9 +296,8 @@ header {
     background-color: #F4E8C1;
     border: 1px solid #D4A017;
     border-radius: 8px;
-    width: 300px;
+    width: 200px;
 }
-
 #searchSubmit {
     padding: 6px 12px;
     font-size: 14px;
@@ -313,42 +310,92 @@ header {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 #searchSubmit:hover {
     background-color: #D4A017;
     color: #fff;
 }
 
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .header-right {
-                margin-top: 10px;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .surah-container, .verses-container {
-                width: 100%;
-            }
-            #ayahDisplay, #translation {
-                max-width: 100%;
-                margin: 20px 10px;
-            }
-            .search-container {
-                position: static;
-                transform: none;
-                margin: 10px 0;
-            }
-        }
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column; /* عمودی ترتیب */
+        padding: 15px 10px; /* فون پر پیڈنگ کم */
+        text-align: center;
+    }
+
+    .header-left {
+        width: 100%; /* مکمل چوڑائی */
+        margin-bottom: 10px; /* نیچے فاصلہ */
+    }
+
+    .header-left h1 {
+        font-size: 0.9em; /* فون پر چھوٹا فونٹ */
+    }
+
+    .search-container {
+        position: static; /* فون پر absolute ہٹائیں */
+        transform: none; /* ٹرانسفارم ہٹائیں */
+        width: 100%; /* مکمل چوڑائی */
+        padding: 5px 0; /* فاصلہ */
+    }
+
+    #searchInput {
+        width: 90%; /* سکرین کے مطابق چوڑائی */
+        max-width: 250px; /* زیادہ سے زیادہ چوڑائی */
+        font-size: 12px; /* چھوٹا فونٹ */
+        padding: 5px 10px; /* چھوٹا پیڈنگ */
+    }
+
+    #searchSubmit {
+        font-size: 12px; /* چھوٹا فونٹ */
+        padding: 5px 10px; /* چھوٹا پیڈنگ */
+    }
+
+    .header-right {
+        width: 100%; /* مکمل چوڑائی */
+        flex-direction: column; /* عمودی ترتیب */
+        gap: 8px; /* فاصلہ کم */
+        margin-top: 10px; /* اوپر فاصلہ */
+    }
+
+    .surah-container, .verses-container {
+        width: 90%; /* سکرین کے مطابق چوڑائی */
+        max-width: 300px; /* زیادہ سے زیادہ چوڑائی */
+        padding: 6px 10px; /* چھوٹا پیڈنگ */
+    }
+
+    .surah-container select, .verses-container select {
+        width: 100%; /* مکمل چوڑائی */
+        font-size: 12px; /* چھوٹا فونٹ */
+        padding: 5px 10px; /* چھوٹا پیڈنگ */
+    }
+
+    #searchBtn {
+        font-size: 12px; /* چھوٹا فونٹ */
+        padding: 5px 12px; /* چھوٹا پیڈنگ */
+        width: 90px; /* فکسڈ چوڑائی */
+    }
+    #ayahDisplay {
+        font-size: 22px; /* عربی کے لیے موبائل */
+        padding: 15px 20px; /* چھوٹا پیڈنگ */
+        max-width: 90%; /* سکرین کے مطابق چوڑائی */
+        margin: 20px auto; /* کم فاصلہ */
+    }
+
+    #translation {
+        font-size: 20px; /* اردو کے لیے موبائل */
+        padding: 10px 15px; /* چھوٹا پیڈنگ */
+        max-width: 90%; /* سکرین کے مطابق چوڑائی */
+        margin: 15px auto; /* کم فاصلہ */
+    }
+}
     </style>
 </head>
 <body>
     <header>
         <div class="header-left"><h1>ALLAH <sup>&</sup> QURAN</h1></div>
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="الفاظ سے تلاش کریں۔۔۔" aria-label="Search Quran">
+            <input type="text" id="searchInput" placeholder="الفاظ سے تلاش کریں اردو یا عربی سے۔۔" aria-label="Search Quran">
             <button id="searchSubmit">Search</button>
         </div>
         <div class="header-right">
