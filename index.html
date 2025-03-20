@@ -302,28 +302,28 @@ header {
 @media (max-width: 768px) {
     .translation-container {
         flex-direction: column; /* فون پر عمودی ترتیب */
-        gap: 15px;
+        gap: 10px;
     }
 
     #translation {
-        font-size: 20px;
-        padding: 10px 15px;
-        width: 90%; /* مکمل چوڑائی */
-        max-width: none; /* زیادہ سے زیادہ چوڑائی ہٹائیں */
-        margin: 0 auto;
-        text-align: left; /* دائیں سے متن */
-        direction: rtl; /* دائیں سے بائیں */
-    }
+    font-size: 20px;
+    padding: 10px 15px;
+    width: 90%; /* مکمل چوڑائی */
+    max-width: none; /* زیادہ سے زیادہ چوڑائی ہٹائیں */
+    margin: 0 auto;
+    text-align: right; /* دائیں سے متن */
+    direction: rtl; /* دائیں سے بائیں (Urdu کے لیے) */
+}
 
-    #englishTranslation {
-        font-size: 20px;
-        padding: 10px 15px;
-        width: 90%; /* مکمل چوڑائی */
-        max-width: none; /* زیادہ سے زیادہ چوڑائی ہٹائیں */
-        margin: 0 auto;
-        text-align: right; /* بائیں سے متن */
-        direction: ltr; /* بائیں سے دائیں */
-    }
+#englishTranslation {
+    font-size: 20px;
+    padding: 10px 15px;
+    width: 90%; /* مکمل چوڑائی */
+    max-width: none; /* زیادہ سے زیادہ چوڑائی ہٹائیں */
+    margin: 0 auto;
+    text-align: left; /* بائیں سے متن */
+    direction: ltr; /* بائیں سے دائیں (English کے لیے) */
+}
 }
 
 .navigation-buttons {
