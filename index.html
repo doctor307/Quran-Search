@@ -12,37 +12,137 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-       body {
-    background-color: #E8F5E9;
-}
-header {
+        body {
+            background-color: #E8F5E9;
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+        }
+        header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #1A3C34;
     color: #F4E8C1;
-    padding: 20px 40px;
+    padding: 15px 20px;
     font-size: 1.2em;
-    font-family: "Montserrat", sans-serif;
     font-weight: 600;
     letter-spacing: 0.5px;
     border-bottom: 1px solid #D4A017;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
-    position: relative;
-    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100vw; /* سکرین سے باہر جانے سے روکنے کے لیے */
+    box-sizing: border-box;
+    z-index: 10;
 }
-
-.header-left h1 {
-    font-size: 1em;
-    margin: 0;
-}
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .header-left h1 {
+            font-size: 1em;
+            margin: 0;
+        }
+        .menu-btn {
+            background-color: #F4E8C1;
+            border: 2px solid #D4A017;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 20px;
+            color: #1A3C34;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+        .menu-btn:hover {
+            background-color: #D4A017;
+            color: #fff;
+        }
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #FDF6E3 0%, #E8DAB2 100%);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -250px; /* بند حالت میں چھپا ہوا */
+            transition: left 0.3s ease;
+            padding-top: 70px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 11;
+        
+        }
+        .sidebar.open {
+            left: 0; /* کھلی حالت میں دکھائی دے */
+        }
+        .close-sidebar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #1A3C34;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .close-sidebar:hover {
+            color: #D4A017;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            padding: 18px 25px;
+            border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+            transition: background 0.3s ease;
+        }
+        .sidebar ul li:hover {
+            background: linear-gradient(90deg, rgba(212, 160, 23, 0.1), transparent);
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            font-family: "Amiri", serif;
+            font-size: 20px;
+            color: #1A3C34;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-right: 10px;
+        }
+        .sidebar ul li a::before {
+            content: "•";
+            color: #D4A017;
+            margin-left: 10px;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .sidebar ul li a:hover {
+            color: #D4A017;
+            font-weight: 700;
+            transform: translateX(-5px);
+        }
+        .sidebar ul li a:hover::before {
+            opacity: 1;
+        }
+        .submenu {
+            display: none; /* شروع میں چھپا ہوا */
+            list-style: none; /* بلیٹس ہٹائیں */
+            padding-left: 20px; /* اندر کی طرف تھوڑی جگہ */
+        }
+        li:hover .submenu {
+            display: block; /* ہاور پر دکھائی دے */
+        }
         header:hover {
             background-color: #2E5C52;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
         }
-
         header::before {
             content: "";
             position: absolute;
@@ -56,12 +156,10 @@ header {
             z-index: 0;
             border-radius: 10px;
         }
-
         header > * {
             position: relative;
             z-index: 1;
         }
-
         .surah-container {
             display: flex;
             justify-content: center;
@@ -76,13 +174,11 @@ header {
             position: relative;
             overflow: hidden;
         }
-
         .surah-container:hover {
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
             background: linear-gradient(135deg, #E8DAB2 0%, #FDF6E3 100%);
             transform: translateY(-2px);
         }
-
         .surah-container::before {
             content: "";
             position: absolute;
@@ -94,12 +190,10 @@ header {
             opacity: 0.15;
             z-index: 0;
         }
-
         .surah-container > * {
             position: relative;
             z-index: 1;
         }
-
         .surah-container select {
             padding: 6px 10px;
             font-size: 15px;
@@ -116,13 +210,11 @@ header {
             background-position: right 10px center;
             padding-right: 25px;
         }
-
         .surah-container select:hover {
             background-color: #D4A017;
             color: #fff;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path fill="%23ffffff" d="M0 0l5 5 5-5H0z"/></svg>');
         }
-
         .verses-container {
             display: flex;
             justify-content: center;
@@ -137,13 +229,11 @@ header {
             position: relative;
             overflow: hidden;
         }
-
         .verses-container:hover {
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
             background: linear-gradient(135deg, #E8DAB2 0%, #FDF6E3 100%);
             transform: translateY(-2px);
         }
-
         .verses-container::before {
             content: "";
             position: absolute;
@@ -155,12 +245,10 @@ header {
             opacity: 0.15;
             z-index: 0;
         }
-
         .verses-container > * {
             position: relative;
             z-index: 1;
         }
-
         .verses-container select {
             padding: 6px 10px;
             font-size: 13px;
@@ -177,13 +265,11 @@ header {
             background-position: right 10px center;
             padding-right: 25px;
         }
-
         .verses-container select:hover {
             background-color: #D4A017;
             color: #fff;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path fill="%23ffffff" d="M0 0l5 5 5-5H0z"/></svg>');
         }
-
         #searchBtn {
             padding: 8px 16px;
             font-size: 14px;
@@ -197,144 +283,101 @@ header {
             transition: all 0.3s ease;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
-
         #searchBtn:hover {
             background-color: #D4A017;
             color: #fff;
             transform: translateY(-2px);
         }
-
         .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         main {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 80px auto 0;
             padding: 20px;
+            transition: margin-left 0.3s ease;
         }
-
+        .sidebar.open ~ main {
+            margin-left: 250px;
+        }
         #ayahDisplay {
-    font-family: 'Amiri Quran', serif;
-    font-size: 30px;
-    line-height: 1.8;
-    color: #1A3C34;
-    text-align: center;
-    direction: rtl;
-    max-width: 1000px;
-    margin: 30px auto;
-    transition: all 0.3s ease;
-    background-color: transparent; /* پس منظر کو شفاف بناتا ہے */
-    border: none; /* بارڈر کو ہٹاتا ہے */
-    padding: 0; /* پیڈنگ کو ہٹاتا ہے */
-    box-shadow: none; /* باکس شیڈو کو ہٹاتا ہے */
-}
-
-#ayahAudio {
-    display: block; /* جب آڈیو ہو تو دکھائی دے */
-    width: 60%;
-    max-width: 400px; /* زیادہ سے زیادہ چوڑائی */
-    margin: 20px auto; /* مرکز میں */
-    background: linear-gradient(135deg, #FDF6E3 0%, #E8DAB2 100%); /* خوبصورت پس منظر */
-    border: 2px solid #D4A017; /* سنہری بارڈر */
-    border-radius: 10px; /* گول کنارے */
-    padding: 10px; /* اندرونی فاصلہ */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ہلکا سائے کا اثر */
-    transition: all 0.3s ease; /* ہموار تبدیلی */
-}
-
-#ayahAudio:hover {
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15); /* ہوور پر بڑا سایہ */
-    transform: translateY(-2px); /* ہلکا اٹھائیں */
-}
-
-/* موبائل کے لیے */
-@media (max-width: 768px) {
-    #ayahAudio {
-        max-width: 90%; /* سکرین کے مطابق چوڑائی */
-        padding: 8px; /* چھوٹا پیڈنگ */
-    }
-}
-.translation-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* دونوں باکسز کے درمیان فاصلہ */
-    max-width: 1200px;
-    margin: 20px auto;
-}
-
-/* اردو ترجمہ (موجودہ CSS) */
-#translation {
-    font-family: 'Amiri', serif;
-    font-size: 30px;
-    line-height: 1.6;
-    color: #1A3C34;
-    text-align: right; /* دائیں سے متن شروع */
-    direction: rtl; /* دائیں سے بائیں */
-    background: linear-gradient(135deg, rgba(245, 232, 199, 0.5), rgba(253, 246, 227, 0.5));
-    border: 1px solid #D4A017;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 50%; /* نصف چوڑائی */
-    transition: all 0.3s ease;
-}
-
-/* انگریزی ترجمہ */
-#englishTranslation {
-    font-family: 'Amiri', serif;
-    font-size: 30px;
-    line-height: 1.6;
-    color: #1A3C34;
-    text-align: left; /* بائیں سے متن شروع */
-    direction: ltr; /* بائیں سے دائیں */
-    background: linear-gradient(135deg, rgba(245, 232, 199, 0.5), rgba(253, 246, 227, 0.5));
-    border: 1px solid #D4A017;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 50%; /* نصف چوڑائی */
-    transition: all 0.3s ease;
-}
-/* موبائل کے لیے میڈیا کوئری */
-@media (max-width: 768px) {
-    .translation-container {
-        flex-direction: column; /* فون پر عمودی ترتیب */
-        gap: 10px;
-    }
-
-    #translation {
-    font-size: 20px;
-    padding: 10px 15px;
-    width: 90%; /* مکمل چوڑائی */
-    max-width: none; /* زیادہ سے زیادہ چوڑائی ہٹائیں */
-    margin: 0 auto;
-    text-align: right; /* دائیں سے متن */
-    direction: rtl; /* دائیں سے بائیں (Urdu کے لیے) */
-}
-
-#englishTranslation {
-    font-size: 20px;
-    padding: 10px 15px;
-    width: 90%; /* مکمل چوڑائی */
-    max-width: none; /* زیادہ سے زیادہ چوڑائی ہٹائیں */
-    margin: 0 auto;
-    text-align: left; /* بائیں سے متن */
-    direction: ltr; /* بائیں سے دائیں (English کے لیے) */
-}
-}
-
-.navigation-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px auto;
-    max-width: 700px;
-    flex-wrap: wrap; /* PC پر لپیٹنے کے لیے */
-}
-
+            font-family: 'Amiri Quran', serif;
+            font-size: 30px;
+            line-height: 1.8;
+            color: #1A3C34;
+            text-align: center;
+            direction: rtl;
+            max-width: 1000px;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+        }
+        #ayahAudio {
+            display: block;
+            width: 60%;
+            max-width: 400px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #FDF6E3 0%, #E8DAB2 100%);
+            border: 2px solid #D4A017;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        #ayahAudio:hover {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .translation-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        #translation {
+            font-family: 'Amiri', serif;
+            font-size: 30px;
+            line-height: 1.6;
+            color: #1A3C34;
+            text-align: right;
+            direction: rtl;
+            background: linear-gradient(135deg, rgba(245, 232, 199, 0.5), rgba(253, 246, 227, 0.5));
+            border: 1px solid #D4A017;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            transition: all 0.3s ease;
+        }
+        #englishTranslation {
+            font-family: 'Amiri', serif;
+            font-size: 30px;
+            line-height: 1.6;
+            color: #1A3C34;
+            text-align: left;
+            direction: ltr;
+            background: linear-gradient(135deg, rgba(245, 232, 199, 0.5), rgba(253, 246, 227, 0.5));
+            border: 1px solid #D4A017;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            transition: all 0.3s ease;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            flex-wrap: wrap;
+        }
         #prevBtn, #nextBtn {
             padding: 8px 16px;
             direction: rtl;
@@ -349,251 +392,276 @@ header {
             transition: all 0.3s ease;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
-
         #prevBtn:hover, #nextBtn:hover {
             background-color: #D4A017;
             color: #1A3C34;
             transform: translateY(-2px);
         }
-
-        .voice-message {
-    position: fixed; /* یا absolute، جیسے آپ کو درکار ہو */
-    bottom: 20px; /* نیچے سے فاصلہ */
-    right: 20px; /* دائیں سے فاصلہ */
-    padding: 15px 25px; /* اندرونی فاصلہ */
-    font-size: 16px; /* فونٹ سائز */
-    font-family: "Montserrat", sans-serif; /* فونٹ */
-    font-weight: 600; /* فونٹ ویٹ */
-    color: #fff; /* متن کا رنگ */
-    background-color: #1A3C34; /* پس منظر کا رنگ */
-    border-radius: 12px; /* گول کونے */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* شڈو */
-    transition: all 0.5s ease; /* ہموار ٹرانزیشن */
-    z-index: 1000; /* دیگر عناصر کے اوپر رکھیں */
-    opacity: 0; /* ابتدائی طور پر چھپا ہوا */
-    transform: translateY(20px); /* ابتدائی طور پر نیچے */
-    visibility: 1s; /* ابتدائی طور پر چھپا ہوا */
-}
-
-.voice-message.show {
-    opacity: 1; /* ظاہر کریں */
-    transform: translateY(0); /* اوپر لائیں */
-    visibility: visible; /* ظاہر کریں */
-}
-
-.voice-message.hide {
-    opacity: 0; /* چھپائیں */
-    transform: translateY(20px); /* نیچے لے جائیں */
-    visibility: 1s; /* چھپائیں */
-}
-
-.navigation-buttons button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-#startVoiceBtn, #stopVoiceBtn {
-    padding: 8px 16px;
-            font-size: 18px;
-            font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
-            font-weight: bold;
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        #searchInput {
+            padding: 6px 12px;
+            font-size: 14px;
+            font-family: "Amiri", serif;
+            color: #1A3C34;
+            text-align: center;
+            direction: rtl;
+            border: 1px solid #D4A017;
+            border-radius: 8px;
+            width: 200px;
+        }
+        #searchSubmit {
+            padding: 6px 12px;
+            font-size: 14px;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 500;
             color: #1A3C34;
             background-color: #F4E8C1;
             border: 2px solid #D4A017;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-#startVoiceBtn:hover, #stopVoiceBtn:hover {
+        }
+        #searchSubmit:hover {
             background-color: #D4A017;
+            color: #fff;
+        }
+        .contact-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+        }
+        .contact-content {
+            background: linear-gradient(135deg, #FDF6E3 0%, #E8DAB2 100%);
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #D4A017;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            box-sizing: border-box; /* اندرونی پیڈنگ کو چوڑائی میں شامل کرو */
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #1A3C34;
+            cursor: pointer;
+        }
+        .contact-content h2 {
+            font-family: "Amiri", serif;
+            font-size: 28px;
+            color: #1A3C34;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .contact-content input, .contact-content textarea {
+            width: calc(100% - 24px); /* پیڈنگ کے لیے ایڈجسٹمنٹ */
+            padding: 10px 12px;
+            margin: 12px 0;
+            border: 1px solid #D4A017;
+            border-radius: 8px;
+            font-family: "Amiri", serif;
+            font-size: 18px;
+            color: #1A3C34;
+            direction: ltr;
+            background-color: #F4E8C1;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* پیڈنگ کو چوڑائی میں شامل کرو */
+        }
+        .contact-content input:focus, .contact-content textarea:focus {
+            border-color: #1A3C34;
+            box-shadow: 0 0 5px rgba(212, 160, 23, 0.5);
+            outline: none;
+        }
+        .contact-content textarea {
+            height: 120px;
+            resize: none;
+        }
+        .contact-content button {
+            width: calc(100% - 24px); /* پیڈنگ کے لیے ایڈجسٹمنٹ */
+            padding: 12px;
+            background-color: #F4E8C1;
+            border: 2px solid #D4A017;
+            border-radius: 25px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A3C34;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box; /* پیڈنگ کو چوڑائی میں شامل کرو */
+            margin: 12px auto; /* سینٹرلائزیشن کے لیے */
+            display: block;
+        }
+        .contact-content button:hover {
+            background: linear-gradient(135deg, #D4A017, #F4E8C1);
             color: #1A3C34;
             transform: translateY(-2px);
-}
-
-#prevBtn, #nextBtn {
-    background-color: #f0f0f0; /* ہلکا سرمئی */
-    color: black;
-}
-
-#prevBtn:hover, #nextBtn:hover {
-    background-color: #e0e0e0;
-}
-        .search-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-}
-
-#searchInput {
-    padding: 6px 12px;
-    font-size: 14px;
-    font-family: "Amiri", serif;
-    color: #1A3C34;
-    text-align: center;
-    direction: rtl;
-    border: 1px solid #D4A017;
-    border-radius: 8px;
-    width: 200px;
-}
-#searchSubmit {
-    padding: 6px 12px;
-    font-size: 14px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    color: #1A3C34;
-    background-color: #F4E8C1;
-    border: 2px solid #D4A017;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-#searchSubmit:hover {
-    background-color: #D4A017;
-    color: #fff;
-}
-
-
-@media (max-width: 768px) {
-
-    header {
-        flex-direction: column; /* عمودی ترتیب */
-        padding: 15px 10px; /* فون پر پیڈنگ کم */
-        text-align: center;
-    }
-
-    .header-left {
-        width: 100%; /* مکمل چوڑائی */
-        margin-bottom: 10px; /* نیچے فاصلہ */
-    }
-
-    .header-left h1 {
-        font-size: 0.9em; /* فون پر چھوٹا فونٹ */
-    }
-
-    .search-container {
-        position: static; /* فون پر absolute ہٹائیں */
-        transform: none; /* ٹرانسفارم ہٹائیں */
-        width: 100%; /* مکمل چوڑائی */
-        padding: 5px 0; /* فاصلہ */
-    }
-
-    #searchInput {
-        width: 90%; /* سکرین کے مطابق چوڑائی */
-        max-width: 250px; /* زیادہ سے زیادہ چوڑائی */
-        font-size: 12px; /* چھوٹا فونٹ */
-        padding: 5px 10px; /* چھوٹا پیڈنگ */
-    }
-
-    #searchSubmit {
-        font-size: 12px; /* چھوٹا فونٹ */
-        padding: 5px 10px; /* چھوٹا پیڈنگ */
-    }
-
-    .header-right {
-        width: 100%; /* مکمل چوڑائی */
-        flex-direction: column; /* عمودی ترتیب */
-        gap: 8px; /* فاصلہ کم */
-        margin-top: 10px; /* اوپر فاصلہ */
-    }
-
-    .surah-container, .verses-container {
-        width: 50%; /* سکرین کے مطابق چوڑائی */
-        max-width: 300px; /* زیادہ سے زیادہ چوڑائی */
-        padding: 6px 10px; /* چھوٹا پیڈنگ */
-    }
-
-    .surah-container select, .verses-container select {
-        width: 80%; /* مکمل چوڑائی */
-        font-size: 12px; /* چھوٹا فونٹ */
-        padding: 5px 10px; /* چھوٹا پیڈنگ */
-    }
-
-    #searchBtn {
-        font-size: 12px; /* چھوٹا فونٹ */
-        padding: 5px 12px; /* چھوٹا پیڈنگ */
-        width: 90px; /* فکسڈ چوڑائی */
-    }
-    #ayahDisplay {
-        font-size: 22px; /* عربی کے لیے موبائل */
-        padding: 15px 20px; /* چھوٹا پیڈنگ */
-        max-width: 90%; /* سکرین کے مطابق چوڑائی */
-        margin: 20px auto; /* کم فاصلہ */
-    }
-
-    #translation {
-        font-size: 20px; /* اردو کے لیے موبائل */
-        padding: 10px 15px; /* چھوٹا پیڈنگ */
-        max-width: 90%; /* سکرین کے مطابق چوڑائی */
-        margin: 15px auto; /* کم فاصلہ */
-    }
-
-}
-
-/* موبائل کے لیے میڈیا کوئری */
-@media only screen and (max-width: 600px) {
-        .navigation-buttons {
-            display: flex; /* فلیکس باکس کا استعمال */
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
         }
-
-        .nav-group {
-            display: flex;
-            justify-content: space-between; /* بائیں اور دائیں */
-            width: 100%;
-            max-width: 300px;
+        .contact-content button::after {
+            content: "➤";
+            position: absolute;
+            right: 15px;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
-        #prevBtn, #nextBtn {
-        padding: 8px 16px;
-        font-size: 14px;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 800;
-        color: #1A3C34;
-        background-color: #F4E8C1;
-        border: 2px solid #D4A017;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    #prevBtn:hover, #nextBtn:hover {
-        background-color: #D4A017;
-        color: #1A3C34;
-        transform: translateY(-2px);
-    }
-        .voice-group {
-            display: flex;
-            justify-content: space-between; /* بائیں اور دائیں */
-            width: 100%;
-            max-width: 300px;
+        .contact-content button:hover::after {
+            opacity: 1;
         }
-
-        #startVoiceBtn, #stopVoiceBtn {
-            width: 48%; /* تقریباً آدھی چوڑائی */
-            margin: 0;
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+                left: -200px;
+                padding-top: 130px;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .sidebar.open ~ main {
+                margin-left: 0;
+                width: calc(100% - 200px);
+            }
+            header {
+                flex-direction: column;
+                padding: 10px 20px;
+                min-height: 120px;
+            }
+            .header-left {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .header-left h1 {
+                font-size: 0.9em;
+            }
+            .search-container {
+                position: static;
+                transform: none;
+                width: 100%;
+                padding: 5px 0;
+            }
+            #searchInput {
+                width: 90%;
+                max-width: 250px;
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            #searchSubmit {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            .header-right {
+                width: 100%;
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 10px;
+            }
+            .surah-container, .verses-container {
+                width: 50%;
+                max-width: 300px;
+                padding: 6px 10px;
+            }
+            .surah-container select, .verses-container select {
+                width: 80%;
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            #searchBtn {
+                font-size: 12px;
+                padding: 5px 12px;
+                width: 90px;
+            }
+            main {
+                margin-top: 140px;
+            }
+            #ayahDisplay {
+                font-size: 22px;
+                padding: 15px 20px;
+                max-width: 90%;
+                margin: 20px auto;
+                margin-top: 130px;
+            }
+            .translation-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            #translation, #englishTranslation {
+                font-size: 20px;
+                padding: 10px 15px;
+                width: 90%;
+                max-width: none;
+                margin: 0 auto;
+            }
+            #ayahAudio {
+                max-width: 90%;
+                padding: 8px;
+                
+            }
         }
+        @media only screen and (max-width: 600px) {
+            .navigation-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin: 20px auto;
+            }
+            .nav-group {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 300px;
+            }
+            #prevBtn, #nextBtn {
+                width: 48%;
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+        }
+        @media (max-width: 768px) {
+    .submenu {
+        padding-left: 10px; /* موبائل پر کم جگہ */
+        background-color: #f9f9f9; /* پس منظر کو الگ دکھانے کے لیے */
     }
+    .submenu li {
+        padding: 5px 0; /* فاصلہ کم کرو */
+    }
+}
     </style>
 </head>
 <body>
     <header>
-        <div class="header-left"><h1>ALLAH <sup>&</sup> QURAN</h1></div>
+        <div class="header-left">
+            <button class="menu-btn">☰</button>
+            <h1>ALLAH <sup>&</sup> QURAN</h1>
+        </div>
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="عربی یا اردو الفاظ سے تلاش کریں۔۔" aria-label="Search Quran">
+            <input type="text" id="searchInput" placeholder="عربی، اردو یا سورہ:آیت (مثال: 2:255)" aria-label="Search Quran">
             <button id="searchSubmit">Search</button>
         </div>
         <div class="header-right">
@@ -721,6 +789,21 @@ header {
             <button id="searchBtn">Go</button>
         </div>
     </header>
+    <div class="sidebar" id="sidebar">
+        <span class="close-sidebar" id="closeSidebar">×</span> <!-- بند کرنے والا بٹن شامل -->
+        <ul>
+            <li><a href="#quran">Quran</a></li>
+            <li id="hadith-menu">
+                <a href="#hadith">Hadees</a>
+                <ul class="submenu">
+                    <li><a href="#bukhari">Sahih Bukhari</a></li>
+                    <li><a href="#muslim">Sahih Muslim</a></li>
+                    <li><a href="#tirmidhi">jamia Tirmizi</a></li>
+                    <li><a href="#abudawood">sunan abu dawood</a></li>
+                </ul>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </div>
     <main>
         <section id="ayahDisplay" aria-label="Arabic Quran Text"></section>
         <audio id="ayahAudio" controls style="display: none; margin: 20px auto; max-width: 90%;">
@@ -731,12 +814,26 @@ header {
             <section id="englishTranslation" aria-label="English Translation"></section>
             <section id="translation" aria-label="Urdu Translation"></section>
         </div>
-        
         <div class="navigation-buttons">
-            <button id="prevBtn">Previous</button>
-            <button id="nextBtn">Next</button>
+            <div class="nav-group">
+                <button id="prevBtn">Previous</button>
+                <button id="nextBtn">Next</button>
+            </div>
         </div>
     </main>
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-content">
+            <span class="close-btn" id="closePopup">×</span>
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <form id="contactForm" action="https://formspree.io/f/xaneeopl" method="POST">
+                    <input type="text" id="name" name="name" placeholder="Name" required>
+                    <input type="email" id="email" name="email" placeholder="email" required>
+                    <textarea id="message" name="message" placeholder="Comment" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+        </div>
+    </div>
 
     <script>
         let quranData = {};
@@ -745,8 +842,26 @@ header {
         const ayahDisplay = document.getElementById("ayahDisplay");
         const translationDisplay = document.getElementById("translation");
         const englishTranslationDisplay = document.getElementById("englishTranslation");
-        let recognition;
     
+        document.getElementById('hadith-menu').addEventListener('click', (e) => {
+    const submenu = document.querySelector('#hadith-menu .submenu');
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    e.preventDefault(); // لنک پر کلک سے صفحہ نہ جائے
+});    
+        // سائیڈ بار کھولنے اور بند کرنے کی منطق
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+    
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+    
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+    
+        // قرآن کا ڈیٹا لوڈ کرنے کا فنکشن
         async function loadQuranData() {
             try {
                 let response = await fetch("quran.json");
@@ -759,6 +874,7 @@ header {
             }
         }
     
+        // آیات کی تعداد اپ ڈیٹ کرنے کا فنکشن
         function updateVerses() {
             let surah = parseInt(surahDropdown.value);
             verseDropdown.innerHTML = "";
@@ -774,6 +890,7 @@ header {
             updateNavigation();
         }
     
+        // کل آیات کا نمبر حاصل کرنے کا فنکشن
         function getTotalAyahNumber(surahNumber, ayahNumber) {
             const ayahsPerSurah = [
                 7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43, 52, 99, 128, 111, 110, 98, 135,
@@ -790,6 +907,7 @@ header {
             return total;
         }
     
+        // آڈیو اپ ڈیٹ کرنے کا فنکشن
         function updateAudio(ayahNumber, surahNumber) {
             const audioElement = document.getElementById('ayahAudio');
             const totalAyah = getTotalAyahNumber(surahNumber, ayahNumber);
@@ -799,6 +917,7 @@ header {
             audioElement.style.display = 'block';
         }
     
+        // آیت اور ترجمہ دکھانے کا فنکشن
         async function fetchAyah() {
             let surah = parseInt(surahDropdown.value);
             let verse = parseInt(verseDropdown.value);
@@ -821,6 +940,7 @@ header {
             updateNavigation();
         }
     
+        // نیویگیشن بٹنوں کو اپ ڈیٹ کرنے کا فنکشن
         function updateNavigation() {
             let surah = parseInt(surahDropdown.value);
             let verse = parseInt(verseDropdown.value);
@@ -830,6 +950,7 @@ header {
             document.getElementById("nextBtn").disabled = (surah === 114 && verse === totalAyahs);
         }
     
+        // پچھلی آیت پر جانے کا فنکشن
         function goToPrevious() {
             let surah = parseInt(surahDropdown.value);
             let verse = parseInt(verseDropdown.value);
@@ -843,6 +964,7 @@ header {
             fetchAyah();
         }
     
+        // اگلی آیت پر جانے کا فنکشن
         function goToNext() {
             let surah = parseInt(surahDropdown.value);
             let verse = parseInt(verseDropdown.value);
@@ -857,9 +979,154 @@ header {
             fetchAyah();
         }
     
+        // قرآن میں تلاش کرنے کا فنکشن (سورہ:آیت، سورہ نام، اور متن سے)
         function searchQuran() {
-            let query = document.getElementById("searchInput").value.trim();
+            let query = document.getElementById("searchInput").value.trim().toLowerCase();
             if (!query) return;
+    
+            const ayahMatch = query.match(/^(\d+):(\d+)$/);
+            if (ayahMatch) {
+                const surah = parseInt(ayahMatch[1]);
+                const verse = parseInt(ayahMatch[2]);
+                if (surah >= 1 && surah <= 114 && quranData[surah] && verse >= 1 && verse <= quranData[surah].ayahs.length) {
+                    surahDropdown.value = surah;
+                    updateVerses();
+                    verseDropdown.value = verse;
+                    fetchAyah();
+                    return;
+                } else {
+                    ayahDisplay.innerHTML = `<p style="color:red;">غلط سورہ یا آیت نمبر!</p>`;
+                    translationDisplay.innerHTML = "";
+                    englishTranslationDisplay.innerHTML = "";
+                    return;
+                }
+            }
+    
+            const surahNames = {
+                "الفاتحہ": 1, "alfatiha": 1, "al-fatiha": 1,
+                "البقرہ": 2, "albaqarah": 2, "al-baqarah": 2,
+                "آل عمران": 3, "aal-e-imran": 3, "aal e imran": 3,
+                "النساء": 4, "annisa": 4, "an-nisa": 4,
+                "المائدہ": 5, "alma'idah": 5, "al-ma'idah": 5,
+                "الأنعام": 6, "alan'am": 6, "al-an'am": 6,
+                "الأعراف": 7, "al-a'raf": 7, "ala'raf": 7,
+                "الأنفال": 8, "alanfal": 8, "al-anfal": 8,
+                "التوبة": 9, "attawbah": 9, "at-tawbah": 9,
+                "يونس": 10, "yunus": 10,
+                "هود": 11, "hud": 11,
+                "يوسف": 12, "yusuf": 12,
+                "الرعد": 13, "ar-ra'd": 13, "arra'd": 13,
+                "إبراهيم": 14, "ibrahim": 14,
+                "الحجر": 15, "alhijr": 15, "al-hijr": 15,
+                "النحل": 16, "an-nahl": 16, "annahl": 16,
+                "الإسراء": 17, "al-isra'": 17, "alisra'": 17,
+                "الكهف": 18, "al-kahf": 18, "alkahf": 18,
+                "مريم": 19, "maryam": 19,
+                "طه": 20, "taha": 20,
+                "الأنبياء": 21, "al-anbiya'": 21, "alanbiya'": 21,
+                "الحج": 22, "al-hajj": 22, "alhajj": 22,
+                "المؤمنون": 23, "al-mu'minun": 23, "almu'minun": 23,
+                "النور": 24, "an-nur": 24, "annur": 24,
+                "الفرقان": 25, "al-furqan": 25, "alfurqan": 25,
+                "الشعراء": 26, "ash-shu'ara'": 26, "ashshu'ara'": 26,
+                "النمل": 27, "an-naml": 27, "annaml": 27,
+                "القصص": 28, "al-qasas": 28, "alqasas": 28,
+                "العنكبوت": 29, "al-'ankabut": 29, "al'ankabut": 29,
+                "الروم": 30, "ar-rum": 30, "arrum": 30,
+                "لقمان": 31, "luqman": 31,
+                "السجدة": 32, "as-sajdah": 32, "assajdah": 32,
+                "الأحزاب": 33, "al-ahzab": 33, "alahzab": 33,
+                "سبأ": 34, "saba'": 34, "saba": 34,
+                "فاطر": 35, "fatir": 35,
+                "يس": 36, "ya-sin": 36, "yasin": 36,
+                "الصافات": 37, "as-saffat": 37, "assaffat": 37,
+                "ص": 38, "sad": 38,
+                "الزمر": 39, "az-zumar": 39, "azzumar": 39,
+                "غافر": 40, "ghafir": 40,
+                "فصلت": 41, "fussilat": 41,
+                "الشورى": 42, "ash-shura": 42, "ashshura": 42,
+                "الزخرف": 43, "az-zukhruf": 43, "azzukhruf": 43,
+                "الدخان": 44, "ad-dukhan": 44, "addukhan": 44,
+                "الجاثية": 45, "al-jathiyah": 45, "aljathiyah": 45,
+                "الأحقاف": 46, "al-ahqaf": 46, "alahqaf": 46,
+                "محمد": 47, "muhammad": 47,
+                "الفتح": 48, "al-fath": 48, "alfath": 48,
+                "الحجرات": 49, "al-hujurat": 49, "alhujurat": 49,
+                "ق": 50, "qaf": 50,
+                "الذاريات": 51, "adh-dhariyat": 51, "adhdhariyat": 51,
+                "الطور": 52, "at-tur": 52, "attur": 52,
+                "النجم": 53, "an-najm": 53, "annajm": 53,
+                "القمر": 54, "al-qamar": 54, "alqamar": 54,
+                "الرحمن": 55, "ar-rahman": 55, "arrahman": 55,
+                "الواقعة": 56, "al-waqi'ah": 56, "alwaqi'ah": 56,
+                "الحديد": 57, "al-hadid": 57, "alhadid": 57,
+                "المجادلة": 58, "al-mujadila": 58, "almujadila": 58,
+                "الحشر": 59, "al-hashr": 59, "alhashr": 59,
+                "الممتحنة": 60, "al-mumtahana": 60, "almumtahana": 60,
+                "الصف": 61, "as-saff": 61, "assaff": 61,
+                "الجمعة": 62, "al-jumu'ah": 62, "aljumu'ah": 62,
+                "المنافقون": 63, "al-munafiqun": 63, "almunafiqun": 63,
+                "التغابن": 64, "at-taghabun": 64, "attaghabun": 64,
+                "الطلاق": 65, "at-talaq": 65, "attalaq": 65,
+                "التحريم": 66, "at-tahrim": 66, "attahrim": 66,
+                "الملك": 67, "al-mulk": 67, "almulk": 67,
+                "القلم": 68, "al-qalam": 68, "alqalam": 68,
+                "الحاقة": 69, "al-haqqah": 69, "alhaqqah": 69,
+                "المعارج": 70, "al-ma'arij": 70, "alma'arij": 70,
+                "نوح": 71, "nuh": 71,
+                "الجن": 72, "al-jinn": 72, "aljinn": 72,
+                "المزمل": 73, "al-muzzammil": 73, "almuzzammil": 73,
+                "المدثر": 74, "al-muddaththir": 74, "almuddaththir": 74,
+                "القيامة": 75, "al-qiyamah": 75, "alqiyamah": 75,
+                "الإنسان": 76, "al-insan": 76, "alinsan": 76,
+                "المرسلات": 77, "al-mursalat": 77, "almursalat": 77,
+                "النبأ": 78, "an-naba'": 78, "annaba'": 78,
+                "النازعات": 79, "an-nazi'at": 79, "annazi'at": 79,
+                "عبس": 80, "'abasa": 80, "abasa": 80,
+                "التكوير": 81, "at-takwir": 81, "attakwir": 81,
+                "الإنفطار": 82, "al-infitar": 82, "alinfitar": 82,
+                "المطففين": 83, "al-mutaffifin": 83, "almutaffifin": 83,
+                "الإنشقاق": 84, "al-inshiqaq": 84, "alinshiqaq": 84,
+                "البروج": 85, "al-buruj": 85, "alburuj": 85,
+                "الطارق": 86, "at-tariq": 86, "attariq": 86,
+                "الأعلى": 87, "al-a'la": 87, "ala'la": 87,
+                "الغاشية": 88, "al-ghashiyah": 88, "alghashiyah": 88,
+                "الفجر": 89, "al-fajr": 89, "alfajr": 89,
+                "البلد": 90, "al-balad": 90, "albalad": 90,
+                "الشمس": 91, "ash-shams": 91, "ashshams": 91,
+                "الليل": 92, "al-layl": 92, "allayl": 92,
+                "الضحى": 93, "ad-duha": 93, "adduha": 93,
+                "الشرح": 94, "ash-sharh": 94, "ashsharh": 94,
+                "التين": 95, "at-tin": 95, "attin": 95,
+                "العلق": 96, "al-'alaq": 96, "al'alaq": 96,
+                "القدر": 97, "al-qadr": 97, "alqadr": 97,
+                "البيّنة": 98, "al-bayyinah": 98, "albayyinah": 98,
+                "الزلزلة": 99, "az-zalzalah": 99, "azzalzalah": 99,
+                "العاديات": 100, "al-'adiyat": 100, "al'adiyat": 100,
+                "القيارة": 101, "al-qari'ah": 101, "alqari'ah": 101,
+                "التكاثر": 102, "at-takathur": 102, "attakathur": 102,
+                "العصر": 103, "al-'asr": 103, "al'asr": 103,
+                "الهمزة": 104, "al-humazah": 104, "alhumazah": 104,
+                "الفيل": 105, "al-fil": 105, "alfil": 105,
+                "قريش": 106, "quraysh": 106,
+                "الماعون": 107, "al-ma'un": 107, "alma'un": 107,
+                "الكوثر": 108, "al-kawthar": 108, "alkawthar": 108,
+                "الكافرون": 109, "al-kafirun": 109, "alkafirun": 109,
+                "النصر": 110, "an-nasr": 110, "annasr": 110,
+                "اللَّهَب": 111, "al-lahab": 111, "allahab": 111,
+                "الإخلاص": 112, "al-ikhlas": 112, "alikhlas": 112,
+                "الفلق": 113, "al-falaq": 113, "alfalaq": 113,
+                "الناس": 114, "an-nas": 114, "annas": 114
+            };
+    
+            if (surahNames[query]) {
+                const surah = surahNames[query];
+                surahDropdown.value = surah;
+                updateVerses();
+                verseDropdown.value = 1;
+                fetchAyah();
+                return;
+            }
     
             for (let surah = 1; surah <= 114; surah++) {
                 if (quranData[surah] && quranData[surah].ayahs) {
@@ -882,69 +1149,7 @@ header {
             englishTranslationDisplay.innerHTML = `<p style="color:red;">No translation found!</p>`;
         }
     
-        function startVoiceRecognition() {
-    if (!('webkitSpeechRecognition' in window)) {
-        alert("آپ کا براؤزر اسپیچ ریکگنیشن کو سپورٹ نہیں کرتا۔ کروم یا ایج استعمال کریں۔");
-        return;
-    }
-
-    recognition = new webkitSpeechRecognition();
-    recognition.lang = 'ar-SA';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    recognition.onresult = (event) => {
-        const spokenText = event.results[0][0].transcript;
-        console.log("سنائی گئی آواز:", spokenText);
-        if (spokenText.length > 0) {
-            console.log("آواز سنی گئی، اگلی آیت پر جا رہے ہیں...");
-            goToNext();
-        } else {
-            console.log("کوئی آواز نہیں سنی گئی۔");
-        }
-    };
-
-    recognition.onerror = (event) => {
-        console.error("Speech recognition error:", event.error);
-        showVoiceMessage(`<p style="color:red;">آواز سننے میں خرابی: ${event.error}</p>`, false);
-    };
-
-    recognition.onend = () => {
-        console.log("سننا ختم ہوا، دوبارہ شروع کر رہے ہیں...");
-        if (recognition) recognition.start();
-    };
-
-    recognition.start();
-    showVoiceMessage("<p>آواز سے پڑھنا شروع ہو گیا!</p>", true);
-}
-
-// نئی فنکشن جو میسج دکھائے گی
-function showVoiceMessage(message, isSuccess) {
-    let voiceMessage = document.querySelector(".voice-message");
-    if (!voiceMessage) {
-        voiceMessage = document.createElement("div");
-        voiceMessage.className = "voice-message";
-        document.body.appendChild(voiceMessage);
-    }
-    voiceMessage.innerHTML = message;
-    voiceMessage.style.backgroundColor = isSuccess ? "#4CAF50" : "#f44336"; // سبز یا سرخ
-    voiceMessage.classList.remove("hide");
-    voiceMessage.classList.add("show");
-
-    setTimeout(() => {
-        voiceMessage.classList.remove("show");
-        voiceMessage.classList.add("hide");
-    }, 2000); // 2 سیکنڈ بعد غائب
-}
-
-function stopVoiceRecognition() {
-    if (recognition) {
-        recognition.stop();
-        recognition = null;
-        showVoiceMessage("<p>آواز سے پڑھنا بند ہو گیا!</p>", false);
-    }
-}
-    
+        // ایونٹ لسنرز شامل کرنا
         surahDropdown.addEventListener("change", updateVerses);
         document.getElementById("searchBtn").addEventListener("click", fetchAyah);
         document.getElementById("prevBtn").addEventListener("click", goToPrevious);
@@ -954,23 +1159,45 @@ function stopVoiceRecognition() {
             if (e.key === "Enter") searchQuran();
         });
     
+        // صفحہ لوڈ ہونے پر تمام فنکشنز شروع کرنا
         document.addEventListener("DOMContentLoaded", () => {
-            const startBtn = document.createElement("button");
-            startBtn.textContent = "آواز سے تلاوت کریں";
-            startBtn.id = "startVoiceBtn";
-            const stopBtn = document.createElement("button");
-            stopBtn.textContent = "آواز والی تلاوت روکیں";
-            stopBtn.id = "stopVoiceBtn";
+            loadQuranData();
     
-            const navButtons = document.querySelector(".navigation-buttons");
-            navButtons.appendChild(startBtn);
-            navButtons.appendChild(stopBtn);
+            // "Contact Us" پاپ اپ اور فارم ہینڈلنگ
+            const contactLink = document.querySelector('.sidebar ul li a[href="#contact"]');
+            const contactPopup = document.getElementById('contactPopup');
+            const closePopup = document.getElementById('closePopup');
+            const contactForm = document.getElementById('contactForm');
     
-            document.getElementById("startVoiceBtn").addEventListener("click", startVoiceRecognition);
-            document.getElementById("stopVoiceBtn").addEventListener("click", stopVoiceRecognition);
+            contactLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                contactPopup.style.display = 'block';
+            });
+    
+            closePopup.addEventListener('click', () => {
+                contactPopup.style.display = 'none';
+            });
+    
+            contactPopup.addEventListener('click', (e) => {
+                if (e.target === contactPopup) {
+                    contactPopup.style.display = 'none';
+                }
+            });
+    
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(contactForm);
+                const action = contactForm.action;
+    
+                setTimeout(() => {
+                    alert('پیغام بھیج دیا گیا!');
+                    contactPopup.style.display = 'none';
+                    contactForm.reset();
+                }, 500);
+    
+                contactForm.submit();
+            });
         });
-    
-        loadQuranData();
     </script>
 </body>
 </html>
